@@ -18,7 +18,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAllInjections();
 builder.Services.AddDbContext<CommonDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionString"]));
 
+builder.Services.AddCors();
+
 var app = builder.Build();
+
+app.UseCors(options => options.WithOrigins("*").AllowAnyMethod().AllowAnyHeader());
 
 app.UseSwagger();
 app.UseSwaggerUI();

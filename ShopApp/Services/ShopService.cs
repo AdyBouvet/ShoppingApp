@@ -38,11 +38,11 @@ namespace ShopApp.Services
             if (shop != null)
             {
                 _repo.Delete(shop);
-                return Out.NotFound(name);
+                return Out.Deleted(name);
             }
-            return Out.Deleted(name);
+            return Out.NotFound(name);
         }
-        
+
 
     }
 }

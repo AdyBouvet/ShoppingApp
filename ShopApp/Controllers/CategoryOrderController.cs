@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopApp.Models;
 using ShopApp.Models.DTO;
 using ShopApp.Services;
 using ShopApp.Utils;
@@ -22,8 +21,9 @@ namespace ShopApp.Controllers
         public ActionResult GetAll() => Ok(_service.GetAll());
         
 
-        [HttpGet("{id}")]
-        public ActionResult Get(string name) => Ok(_service.Get(name));
+        [HttpGet("{shopName}/{categoryName}")]
+        public ActionResult Get(string shopName, string categoryName) => 
+            Ok(_service.Get(shopName, categoryName));
 
 
         [HttpPost]
@@ -36,9 +36,9 @@ namespace ShopApp.Controllers
         }
 
             [HttpDelete]
-        public IActionResult Delete(string name)
+        public IActionResult Delete(string shopName, string categoryName)
         {
-            Output res = _service.Delete(name);
+            Output res = _service.Delete(shopName, categoryName);
             if (res.Ok())
                 return Ok(res.Message);
             else return BadRequest(res.Message);

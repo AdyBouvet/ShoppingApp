@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopApp.Enums;
+using ShopApp.Models;
 using ShopApp.Models.DTO;
 using ShopApp.Services;
 using ShopApp.Utils;
@@ -8,28 +8,32 @@ namespace ShopApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : Controller
+    public class ItemController : Controller
     {
 
-        private readonly CategoryService _service;
+        private readonly ItemService _service;
 
-        public CategoryController(CategoryService service)
+        public ItemController(ItemService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public ActionResult GetAll() => 
-            Ok(_service.GetAll());
+        public ActionResult GetAll(string? category)
+        {
+            return Ok(_service.GetAll(category));
+        }
+        
 
-        [HttpGet("{id}")]
+        [HttpGet("{name}")]
         public ActionResult Get(string name) => 
             Ok(_service.Get(name));
 
+
         [HttpPost]
-        public IActionResult Create([FromBody] CategoryDTO category)
+        public ActionResult Create([FromBody] ItemDTO item)
         {
-            Output res = _service.Create(category);
+            Output res = _service.Create(item);
             if (res.Ok())
                 return Ok(res.Message);
             else return BadRequest(res.Message);

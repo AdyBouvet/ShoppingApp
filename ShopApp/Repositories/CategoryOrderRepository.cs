@@ -27,10 +27,12 @@ namespace ShopApp.Repositories
             _context.CategoryOrder.Include(x => x.Shop).Include(x => x.Category);
         
 
-        public CategoryOrder? Get(string name)
-        {
-            throw new NotImplementedException();
-        }
+        public CategoryOrder? Get(string shopName, string categoryName) =>
+            Base()
+                .Where(x => x.Category.Name == categoryName)
+                .Where(x => x.Shop.Name == shopName)
+                .FirstOrDefault();
+        
 
         public void Delete(CategoryOrder co)
         {
@@ -39,5 +41,9 @@ namespace ShopApp.Repositories
             _context.SaveChanges();
         }
 
+        public CategoryOrder? Get(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

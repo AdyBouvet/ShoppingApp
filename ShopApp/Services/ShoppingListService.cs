@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopApp.Converters;
-using ShopApp.Migrations;
+﻿using ShopApp.Converters;
 using ShopApp.Models;
 using ShopApp.Models.DTO;
 using ShopApp.Repositories;
@@ -31,7 +29,7 @@ namespace ShopApp.Services
             return response;
         }
 
-        public ShoppingListDTO? Get(string name) => 
+        public ShoppingListDTO? Get(string name) =>
             _converter.Convert(_repo.Get(name));
 
         public Output Create(ShoppingListDTO shoppingList)
@@ -43,7 +41,7 @@ namespace ShopApp.Services
             return Out.Created(shoppingList.Name);
         }
 
-        public Output Add(string itemName, string listName, int amount, string comment) 
+        public Output Add(string itemName, string listName, int amount, string comment)
         {
             Item? item = _itemRepo.Get(itemName);
             if (item == null)
@@ -52,7 +50,6 @@ namespace ShopApp.Services
             ShoppingList? list = _repo.Get(listName);
             if (list == null)
                 return Out.NotFound(listName);
-
 
             ItemShoppingList itemShop = new()
             {
@@ -79,13 +76,13 @@ namespace ShopApp.Services
             if (item == null)
                 return Out.NotFound(itemName);
 
-            ItemShoppingList? itemShopList =_itemShopRepo.Get(item, list);
+            ItemShoppingList? itemShopList = _itemShopRepo.Get(item, list);
             if (itemShopList == null)
                 return Out.NotFound(itemName);
 
             _itemShopRepo.Delete(itemShopList);
             return Out.Removed(itemName, listName);
-            
+
         }
         public Output Delete(string name)
         {
@@ -93,9 +90,9 @@ namespace ShopApp.Services
             if (list != null)
             {
                 _repo.Delete(list);
-                return Out.NotFound(name);
+                return Out.Deleted(name);
             }
-            return Out.Deleted(name);
+            return Out.NotFound(name);
         }
 
     }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopApp.Models;
 using ShopApp.Models.DTO;
 using ShopApp.Services;
 using ShopApp.Utils;
@@ -23,7 +22,7 @@ namespace ShopApp.Controllers
             Ok(_service.GetAll());
         
 
-        [HttpGet("{id}")]
+        [HttpGet("{name}")]
         public ActionResult Get(string name) =>
             Ok(_service.Get(name));
         

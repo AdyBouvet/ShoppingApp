@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopApp.Models;
 using ShopApp.Models.DTO;
 using ShopApp.Services;
 using ShopApp.Utils;
@@ -8,32 +7,28 @@ namespace ShopApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemController : Controller
+    public class CategoryController : Controller
     {
 
-        private readonly ItemService _service;
+        private readonly CategoryService _service;
 
-        public ItemController(ItemService service)
+        public CategoryController(CategoryService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public ActionResult GetAll(string? category)
-        {
-            return Ok(_service.GetAll(category));
-        }
-        
+        public ActionResult GetAll() => 
+            Ok(_service.GetAll());
 
-        [HttpGet("{id}")]
+        [HttpGet("{name}")]
         public ActionResult Get(string name) => 
             Ok(_service.Get(name));
 
-
         [HttpPost]
-        public ActionResult Create([FromBody] ItemDTO item)
+        public IActionResult Create([FromBody] CategoryDTO category)
         {
-            Output res = _service.Create(item);
+            Output res = _service.Create(category);
             if (res.Ok())
                 return Ok(res.Message);
             else return BadRequest(res.Message);

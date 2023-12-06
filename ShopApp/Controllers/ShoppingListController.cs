@@ -21,7 +21,7 @@ namespace ShopApp.Controllers
         [HttpGet]
         public IActionResult GetAll() => Ok(_service.GetAll());
 
-        [HttpGet("{id}")]
+        [HttpGet("{name}")]
         public IActionResult Get(string name) => Ok(_service.Get(name));
 
         [HttpPost]
