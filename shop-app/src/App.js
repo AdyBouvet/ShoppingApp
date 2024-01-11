@@ -1,7 +1,7 @@
 import './App.css';
 import { ItemList } from './components/item-list/ItemList';
 import { ShoppingList } from './components/shopping-list/ShoppingList';
-import { NewItem } from './pages/new-item/NewItem';
+import { NewItemPage } from './pages/new-item/NewItemPage';
 import { GetCategoryOrder, GetCategoryOrders, CreateCategoryOrder, DeleteCategoryOrder } from './services/CategoryOrderService';
 
 function App() {
@@ -19,13 +19,11 @@ function App() {
 
   return (
     <div className="App">
-      <ItemList list={item}/>
-      <ShoppingList list={shoppingList} />
-      <NewItem/>
-      <button onClick={() => GetCategoryOrders().then(a => console.log(a))}>All</button>
+      <NewItemPage/>
+      {/*<button onClick={() => GetCategoryOrders().then(a => console.log(a))}>All</button>
       <button onClick={() => GetCategoryOrder("Fjøsanger", "Category2").then(a => console.log(a))}>One</button>
       <button onClick={() => CreateCategoryOrder({"category": "Category2", "shop" : "Fjøsanger", "order": 1}).then(a => console.log(a))}>Create</button>
-      <button onClick={() => DeleteCategoryOrder("Fjøsanger", "Category2").then(a => console.log(a))}>Delete</button>
+  <button onClick={() => DeleteCategoryOrder("Fjøsanger", "Category2").then(a => console.log(a))}>Delete</button>*/}
     </div>
   );
 }
