@@ -8,9 +8,9 @@ export const NewItem = () => {
     const [name, setName] = useState("")
     const [category, setCategory] = useState("Default")
     const [description, setDescription] = useState("")
-    const [loading, setLoading] = useState(false)
     const [items, setItems] = useState([]);
     const [categories, setCategories] = useState(["A", "B"]);
+    const [success, setSuccess] = useState("Default")
 
     const onNameInput = ({ target: { value } }) => setName(value)
     const onCategoryInput = ({ target: { value } }) => setCategory(value)
@@ -18,12 +18,14 @@ export const NewItem = () => {
 
     const onFormSubmit = e => {
         if (category === "Default" || items.includes(name)) {
-            console.log("failed")
             e.preventDefault()
         } else {
             const response = { "Name": name, "Category": category, "Description": description }
-            CreateItem(response)
+            CreateItem(response).catch(err => setSuccess(err))
             e.preventDefault()
+            setName("")
+            setDescription("")
+            setSuccess("Submitted!")
         }
     }
 
@@ -68,6 +70,7 @@ export const NewItem = () => {
                     Submit
                 </Button>
             </Form>}
+            {success != "Default" && <p>{success}</p>}
         </div>
     );
 }
