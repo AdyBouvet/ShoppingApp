@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+const url = "https://hashoppinglist.azurewebsites.net/api/"
 /**
  * Returns Item objects from API
  * 
@@ -7,13 +9,13 @@ import axios from "axios";
  * @returns Item objects
  */
 export const GetItems = (category) => 
-    axios.get("https://localhost:7205/api/Item").then(res => res.data);
+    axios.get(url + "Item").then(res => res.data);
 
 export const GetItem = (name) => 
-    axios.get("https://localhost:7205/api/Item/" + name).then(res => res.data);
+    axios.get(url + "Item/" + name).then(res => res.data);
 
 export const CreateItem = (item) => 
-    axios.post("https://localhost:7205/api/Item", item).then(res => res.data).catch(err => console.log(err));
+    axios.post(url + "Item", item).then(res => res.data).catch(err => console.log(err));
 
 export const DeleteItem = (name) =>
-    axios.delete("https://localhost:7205/api/Item?name=" + name)
+    axios.delete(url + "Item?name=" + name)
