@@ -21,11 +21,14 @@ export const NewItem = () => {
             e.preventDefault()
         } else {
             const response = { "Name": name, "Category": category, "Description": description }
-            CreateItem(response).catch(err => setSuccess(err))
+            CreateItem(response).then(data => {
+                setName("")
+                setDescription("")
+                setSuccess(data)
+            }).catch(err => {
+                setSuccess(err.response.data)
+            })
             e.preventDefault()
-            setName("")
-            setDescription("")
-            setSuccess("Submitted!")
         }
     }
 
@@ -70,7 +73,7 @@ export const NewItem = () => {
                     Submit
                 </Button>
             </Form>}
-            {success != "Default" && <p>{success}</p>}
+            {success !== "Default" && <p>{success}</p>}
         </div>
     );
 }

@@ -15,7 +15,7 @@ export const GetItem = (name) =>
     axios.get(url + "Item/" + name).then(res => res.data);
 
 export const CreateItem = (item) => 
-    axios.post(url + "Item", item).then(res => res.data).catch(err => console.log(err));
+    axios.post(url + "Item", item).then(res => res.data);
 
 export const DeleteItem = (name) =>
     axios.delete(url + "Item?name=" + name)
