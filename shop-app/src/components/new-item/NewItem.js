@@ -17,19 +17,15 @@ export const NewItem = () => {
     const onDescriptionInput = ({ target: { value } }) => setDescription(value)
 
     const onFormSubmit = e => {
-        if (category === "Default" || items.includes(name)) {
-            e.preventDefault()
-        } else {
-            const response = { "Name": name, "Category": category, "Description": description }
-            CreateItem(response).then(data => {
-                setName("")
-                setDescription("")
-                setSuccess(data)
-            }).catch(err => {
-                setSuccess(err.response.data)
-            })
-            e.preventDefault()
-        }
+        const response = { "Name": name, "Category": category, "Description": description }
+        CreateItem(response).then(data => {
+            setName("")
+            setDescription("")
+            setSuccess(data)
+        }).catch(err => {
+            setSuccess(err.response.data)
+        })
+        e.preventDefault()
     }
 
     function getData() {
@@ -47,10 +43,11 @@ export const NewItem = () => {
 
     return (
         <div>
-            {categories.length > 0 && <Form onSubmit={onFormSubmit}>
+            <h1>Add new item</h1>
+            {categories.length > 0 && items.length > 0 && <Form onSubmit={onFormSubmit}>
                 <Form.Group className="mb-3" controlId="name">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control required isInvalid={items.includes(name)} type="text" placeholder="Enter name" value={name} onChange={onNameInput} />
+                    <Form.Control required isInvalid={items.some(i => i.name === name) || name.length < 1} type="text" placeholder="Enter name" value={name} onChange={onNameInput} />
                     <Form.Control.Feedback type="invalid">
                         Item exists
                     </Form.Control.Feedback>
@@ -59,6 +56,7 @@ export const NewItem = () => {
                 <Form.Group className="mb-3" controlId="category">
                     <Form.Label>Category</Form.Label>
                     <Form.Select isInvalid={category === "Default"} aria-label="Default select example" value={category} onChange={onCategoryInput}>
+                        <option value="Default">Select category</option>
                         {categories.map(x => <option key={x.name} value={x.name}>{x.name}</option>)}
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">

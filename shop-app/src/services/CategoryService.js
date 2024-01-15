@@ -15,7 +15,7 @@ export const GetCategory = (name) =>
     axios.get(url +"Category/" + name).then(res => res.data);
 
 export const CreateCategory = (category) => 
-    axios.post(url + "Category", category).then(res => res.data).catch(err => console.log(err));
+    axios.post(url + "Category", category).then(res => res.data);
 
 export const DeleteCategory = (name) =>
     axios.delete(url + "Category?name=" + name)
