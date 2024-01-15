@@ -1,9 +1,9 @@
 export const Item = ({ item }) => {
     return(
         <div>
-            <p>{item.Name}</p>
-            <p>{item.Category}</p>
-            <p>{item.Description}</p>
+            <p>{item.name}</p>
+            <p>{item.category}</p>
+            <p>{item.description}</p>
         </div>
     )
 }

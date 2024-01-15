@@ -44,7 +44,7 @@ export const NewItem = () => {
     return (
         <div>
             <h1>Add new item</h1>
-            {categories.length > 0 && items.length > 0 && <Form onSubmit={onFormSubmit}>
+            {categories.length > 0 && <Form onSubmit={onFormSubmit}>
                 <Form.Group className="mb-3" controlId="name">
                     <Form.Label>Name</Form.Label>
                     <Form.Control required isInvalid={items.some(i => i.name === name) || name.length < 1} type="text" placeholder="Enter name" value={name} onChange={onNameInput} />

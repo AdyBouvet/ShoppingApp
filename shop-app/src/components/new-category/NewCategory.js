@@ -34,10 +34,10 @@ export const NewCategory = () => {
     return (
         <div>
             <h1>Add new category</h1>
-            {categories.length > 0 && <Form onSubmit={onFormSubmit}>
+            <Form onSubmit={onFormSubmit}>
                 <Form.Group className="mb-3" controlId="name">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control required isInvalid={categories.some(i => i.name === name) || name < 1} type="text" placeholder="Enter name" value={name} onChange={onNameInput} />
+                    <Form.Control required isInvalid={categories.some(i => i.name === name) || name < 1 } type="text" placeholder="Enter name" value={name} onChange={onNameInput} />
                     <Form.Control.Feedback type="invalid">
                         Category exists
                     </Form.Control.Feedback>
@@ -45,7 +45,7 @@ export const NewCategory = () => {
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
-            </Form>}
+            </Form>
             {success !== "Default" && <p>{success}</p>}
         </div>
     );
