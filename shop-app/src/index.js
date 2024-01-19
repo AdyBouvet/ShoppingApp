@@ -4,11 +4,39 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { NewItemPage } from './pages/new-item/NewItemPage';
+import { ShoppinglistPage } from './pages/shoppinglist-page/ShoppinglistPage';
+import { NewCategory } from './components/new-category/NewCategory';
+import { FrontPage } from './pages/front-page/FrontPage';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <FrontPage/>
+  },
+  {
+    path: "new-item",
+    element: <NewItemPage/>
+  },
+  {
+    path: "add-item",
+    element: <ShoppinglistPage/>
+  },
+  {
+    path: "new-category",
+    element: <NewCategory/>
+  }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
   
 );

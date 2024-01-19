@@ -7,15 +7,6 @@ function App() {
 
   return (
     <div className="App">
-      <ShoppinglistPage/>
-      <br/>
-      <br/>
-      <br/>
-      {/*<NewItemPage/>
-      <br/>
-      <br/>
-      <br/>
-      <NewCategory/>*/}
     </div>
   );
 }

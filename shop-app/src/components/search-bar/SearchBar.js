@@ -10,8 +10,6 @@ export const SearchBar = ({ search, setSearch }) => {
 
     return (
         <div>
-            {//items.map(item => item.name.toLowerCase().includes(input.toLowerCase()) && <Item key={item}>{item}</Item>)
-            }
             <Form>
                 <Form.Group className="mb-3" controlId="name">
                     <Form.Label>Name</Form.Label>

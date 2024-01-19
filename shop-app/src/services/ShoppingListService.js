@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const url = "https://hashoppinglist.azurewebsites.net/api/"
+
 /**
  * Returns Item objects from API
  * 
@@ -7,19 +9,19 @@ import axios from "axios";
  * @returns Item objects
  */
 export const GetShoppingLists = () => 
-    axios.get("https://localhost:7205/api/ShoppingList").then(res => res.data);
+    axios.get(url + "ShoppingList").then(res => res.data);
 
 export const GetShoppingList = (name) => 
-    axios.get("https://localhost:7205/api/ShoppingList/" + name).then(res => res.data);
+    axios.get(url + "ShoppingList/" + name).then(res => res.data);
 
 export const CreateShoppingList = (list) => 
-    axios.post("https://localhost:7205/api/ShoppingList", list).then(res => res.data).catch(err => console.log(err));
+    axios.post(url + "ShoppingList", list).then(res => res.data);
 
 export const DeleteShoppingList = (name) =>
-    axios.delete("https://localhost:7205/api/ShoppingList?name=" + name)
+    axios.delete(url +"ShoppingList?name=" + name)
 
 export const AddShoppingList = (itemName, listName, amount, comment) =>
-    axios.post("https://localhost:7205/api/ShoppingList/add?itemName=" + itemName + "&listName=" + listName +"&amount=" + amount + "&comment=" + comment)
+    axios.post(url + "ShoppingList/add?itemName=" + itemName + "&listName=" + listName +"&amount=" + amount + "&comment=" + comment)
 
 export const RemoveShoppingList = (itemName, listName) =>
-    axios.delete("https://localhost:7205/api/ShoppingList/remove?itemName=" + itemName + "&listName=" + listName)
+    axios.delete(url + "ShoppingList/remove?itemName=" + itemName + "&listName=" + listName)
