@@ -10,11 +10,23 @@ export const ShoppinglistPage = () => {
     const [name, setName] = useState("")
     const [items, setItems] = useState([]);
     const [itemSearch, setItemSearch] = useState([])
-    const [category, setCategory] = useState("Default")
+    const [shoppingList, setShoppingList] = useState("Default")
     const [categories, setCategories] = useState(["A", "B"]);
     const [show, setShow] = useState(true)
 
-    const onCategoryInput = ({ target: { value } }) => setCategory(value)
+    const onShoppingListInput = ({ target: { value } }) => { 
+        setShoppingList(value)
+        if (show) {
+            setShow(true)
+            if (value !== "Default") {
+                GetShoppingList(value).then(a => {
+                    setItems(a.items)
+                    setItemSearch(a.items)
+                })
+
+            }
+        }
+    }
 
     const onSearch = input => {
         if (typeof input == "string") {
@@ -30,12 +42,11 @@ export const ShoppinglistPage = () => {
     const onSwitch = (type) => {
         if (type === "show") {
             setShow(true)
-            if (category !== "Default") {
-                GetShoppingList(category).then(a => {
+            if (shoppingList !== "Default") {
+                GetShoppingList(shoppingList).then(a => {
                     setItems(a.items)
                     setItemSearch(a.items)
                 })
-
             }
         } else {
             setShow(false)
@@ -68,18 +79,18 @@ export const ShoppinglistPage = () => {
                 <Button onClick={() => onSwitch("add")}>Add</Button>
             </div>
             <Form>
-                <Form.Group className="mb-3" controlId="category">
-                    <Form.Label>Shoppinglist name</Form.Label>
-                    <Form.Select isInvalid={category === "Default"} aria-label="Default select example" value={category} onChange={onCategoryInput}>
-                        <option value="Default">Select category</option>
+                <Form.Group className="mb-3" controlId="shoppingList">
+                    <Form.Label>Shopping list name</Form.Label>
+                    <Form.Select isInvalid={shoppingList === "Default"} aria-label="Default select example" value={shoppingList} onChange={onShoppingListInput}>
+                        <option value="Default">Select shopping list</option>
                         {categories.map(x => <option key={x.name} value={x.name}>{x.name}</option>)}
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
-                        Select a category
+                        Select a shoppingList
                     </Form.Control.Feedback>
                 </Form.Group>
             </Form>
-            {items.length > 0 && <ItemList list={itemSearch} add={!show} shoppingList={category}/>}
+            {items.length > 0 && shoppingList != "Default" && <ItemList list={itemSearch} add={!show} shoppingList={shoppingList}/>}
             {items.length > 0 && <SearchBar search={name} setSearch={onSearch}></SearchBar>}
         </div>
     );

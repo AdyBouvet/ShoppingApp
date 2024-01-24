@@ -7,5 +7,6 @@
         public string Description { get; set; } = string.Empty;
         public int Amount { get; set; } = 1;
         public string Comment {  get; set; } = string.Empty;
+        public bool Bought { get; set; } = false;
     }
 }

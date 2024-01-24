@@ -49,7 +49,8 @@ namespace ShopApp.Converters
                 Comment = list.Comment,
                 Category = item.Category,
                 Description = item.Description,
-                Name= item.Name,
+                Name = item.Name,
+                Bought = list.Bought
             };
         }   
 }

@@ -49,6 +49,9 @@ namespace ShopApp.Controllers
         [HttpDelete("remove")]
         public IActionResult Remove(string itemName, string listName) => 
             Ok(_service.Remove(itemName, listName));
-        
+
+        [HttpPatch]
+        public IActionResult Buy(string itemName, string listName, bool bought) =>
+            Ok(_service.Buy(itemName, listName, bought));
     }
 }

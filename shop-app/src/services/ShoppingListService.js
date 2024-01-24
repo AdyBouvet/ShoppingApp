@@ -25,3 +25,6 @@ export const AddShoppingList = (itemName, listName, amount, comment) =>
 
 export const RemoveShoppingList = (itemName, listName) =>
     axios.delete(url + "ShoppingList/remove?itemName=" + itemName + "&listName=" + listName)
+
+export const Buy = (itemName, listName, bought) =>
+    axios.patch(url + "ShoppingList?itemName=" + itemName + "&listName=" + listName + "&bought=" + bought)

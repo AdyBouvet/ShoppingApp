@@ -1,8 +1,10 @@
 ﻿using ShopApp.Converters;
+using ShopApp.Migrations;
 using ShopApp.Models;
 using ShopApp.Models.DTO;
 using ShopApp.Repositories;
 using ShopApp.Utils;
+using System.Diagnostics.Eventing.Reader;
 
 namespace ShopApp.Services
 {
@@ -41,7 +43,7 @@ namespace ShopApp.Services
             return Out.Created(shoppingList.Name);
         }
 
-        public Output Add(string itemName, string listName, int amount, string comment)
+        public Output Add(string itemName, string listName, int amount, string comment, bool bought = false)
         {
             Item? item = _itemRepo.Get(itemName);
             if (item == null)
@@ -51,19 +53,22 @@ namespace ShopApp.Services
             if (list == null)
                 return Out.NotFound(listName);
 
+            if (list.Item.Any(x => x.Item.Name == item.Name))
+                return Out.Exists(item.Name);
+
             ItemShoppingList itemShop = new()
             {
                 ShoppingList = list,
                 Item = item,
                 Amount = amount,
-                Comment = comment
+                Comment = comment,
+                Bought = bought
             };
 
             _itemShopRepo.Create(itemShop);
 
             _repo.Update(list);
             return Out.Added(itemName, listName);
-
         }
 
         public Output Remove(string itemName, string listName)
@@ -94,6 +99,22 @@ namespace ShopApp.Services
             }
             return Out.NotFound(name);
         }
+
+        public Output Buy(string itemName, string listName, bool bought)
+        {
+            ShoppingList? list = _repo.Get(listName);
+            if (list == null)
+                return Out.NotFound(listName);
+
+            ItemShoppingList? item = list.Item.FirstOrDefault(x => x.Item.Name == itemName);
+            if (item == null)
+                return Out.NotFound(itemName);
+
+            Remove(itemName, listName);
+
+            return Add(itemName, listName, item.Amount, item.Comment, bought);
+        }
+
 
     }
 }

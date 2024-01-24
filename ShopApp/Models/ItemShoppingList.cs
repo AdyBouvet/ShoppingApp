@@ -7,5 +7,6 @@
         public ShoppingList ShoppingList { get; set; }
         public int Amount { get; set; }
         public string Comment { get; set; } = string.Empty;
+        public bool Bought { get; set; } = false;
     }
 }
