@@ -12,6 +12,7 @@ import { NewItemPage } from './pages/new-item/NewItemPage';
 import { ShoppinglistPage } from './pages/shoppinglist-page/ShoppinglistPage';
 import { NewCategory } from './components/new-category/NewCategory';
 import { FrontPage } from './pages/front-page/FrontPage';
+import { NewShoppingList } from './pages/new-shopping-list/NewShoppingList';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "new-category",
     element: <NewCategory/>
+  },
+  {
+    path: "new-shopping-list",
+    element: <NewShoppingList/>
   }
 ]);
 

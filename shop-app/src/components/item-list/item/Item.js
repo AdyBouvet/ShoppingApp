@@ -27,8 +27,8 @@ export const Item = ({ item, shoppingList, remove = false, add = false }) => {
         <div>
             {add && <Button onClick={() => onAdd(item.name)}>{item.name}</Button>}
             {add === false && 
-                <Button variant={item.bought ? "success" : "danger"} onClick={() => buy()}>
-                    <p style={{ textDecorationLine: !item.bought ? 'line-through' : "none", textDecorationStyle: 'solid' }}>{item.amount} {item.name}</p>
+                <Button variant={item.bought ? "danger" : "success"} onClick={() => buy()}>
+                    <p style={{ textDecorationLine: item.bought ? 'line-through' : "none", textDecorationStyle: 'solid' }}>{item.amount} {item.name}</p>
                 </Button>
             }
             {remove && <Button variant="danger">Delete</Button>}
