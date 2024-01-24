@@ -40,8 +40,8 @@ export const ShoppinglistPage = () => {
         }
     }
     const onSwitch = (type) => {
-        if (type === "show") {
-            setShow(true)
+        setShow(type)
+        if (type === "show" || type === "remove") {
             if (shoppingList !== "Default") {
                 GetShoppingList(shoppingList).then(a => {
                     setItems(a.items)
@@ -49,7 +49,6 @@ export const ShoppinglistPage = () => {
                 })
             }
         } else {
-            setShow(false)
             GetItems().then(a => {
                 setItems(a)
                 setItemSearch(a)
@@ -77,6 +76,7 @@ export const ShoppinglistPage = () => {
             <div>
                 <Button onClick={() => onSwitch("show")}>Show</Button>
                 <Button onClick={() => onSwitch("add")}>Add</Button>
+                <Button onClick={() => onSwitch("remove")}>Remove</Button>
             </div>
             <Form>
                 <Form.Group className="mb-3" controlId="shoppingList">
@@ -90,7 +90,7 @@ export const ShoppinglistPage = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
             </Form>
-            {items.length > 0 && shoppingList != "Default" && <ItemList list={itemSearch} add={!show} shoppingList={shoppingList}/>}
+            {items.length > 0 && shoppingList != "Default" && <ItemList list={itemSearch} mode={show} shoppingList={shoppingList}/>}
             {items.length > 0 && <SearchBar search={name} setSearch={onSearch}></SearchBar>}
         </div>
     );

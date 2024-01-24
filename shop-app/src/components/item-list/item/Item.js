@@ -1,9 +1,9 @@
 import { Button } from "react-bootstrap"
-import { AddShoppingList, Buy } from "../../../services/ShoppingListService"
+import { AddShoppingList, Buy, RemoveShoppingList } from "../../../services/ShoppingListService"
 import { Numpad } from "../../numpad/Numpad"
 import { useState } from "react"
 
-export const Item = ({ item, shoppingList, remove = false, add = false }) => {
+export const Item = ({ item, shoppingList, mode }) => {
 
     const [numpad, setNumpad] = useState(false)
     const [name, setName] = useState("")
@@ -12,6 +12,10 @@ export const Item = ({ item, shoppingList, remove = false, add = false }) => {
     const onAdd = (name) => {
         setName(name)
         setNumpad(true)
+    }
+
+    const onRemove = (name) => {
+        RemoveShoppingList(name, shoppingList).then(() => rerender(!render))
     }
 
     const buy = () => {
@@ -25,13 +29,13 @@ export const Item = ({ item, shoppingList, remove = false, add = false }) => {
 
     return (
         <div>
-            {add && <Button onClick={() => onAdd(item.name)}>{item.name}</Button>}
-            {add === false && 
+            {mode === "add" && <Button onClick={() => onAdd(item.name)}>{item.name}</Button>}
+            {mode === "show" && 
                 <Button variant={item.bought ? "danger" : "success"} onClick={() => buy()}>
                     <p style={{ textDecorationLine: item.bought ? 'line-through' : "none", textDecorationStyle: 'solid' }}>{item.amount} {item.name}</p>
                 </Button>
             }
-            {remove && <Button variant="danger">Delete</Button>}
+            {mode === "remove" && <Button variant="danger" onClick={() => onRemove(item.name)}>{item.name}</Button>}
             {numpad && <Numpad selected={onNumber}></Numpad>}
         </div>
     )
