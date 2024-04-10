@@ -12,20 +12,30 @@ export const ShoppinglistPage = () => {
     const [itemSearch, setItemSearch] = useState([])
     const [shoppingList, setShoppingList] = useState("Default")
     const [categories, setCategories] = useState(["A", "B"]);
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState("show")
 
-    const onShoppingListInput = ({ target: { value } }) => { 
+
+    const onShoppingListInput = ({ target: { value } }) => {
         setShoppingList(value)
-        if (show) {
-            setShow(true)
-            if (value !== "Default") {
-                GetShoppingList(value).then(a => {
-                    setItems(a.items)
-                    setItemSearch(a.items)
-                })
-
-            }
+        if (value === "Default") {
+            setItems([])
+            setItemSearch([])
+        } else if (show === "show" || show === "remove") {
+            GetShoppingList(value).then(a => {
+                setItems(a.items)
+                setItemSearch(a.items)
+            })
+        } else {
+            GetItems().then(a => {
+                setItems(a)
+                setItemSearch(a)
+            })
         }
+    }
+
+    const rerenderNow = () => {
+        console.log("rerender")
+        onSwitch(show)
     }
 
     const onSearch = input => {
@@ -39,15 +49,17 @@ export const ShoppinglistPage = () => {
             setName(input)
         }
     }
+
     const onSwitch = (type) => {
         setShow(type)
-        if (type === "show" || type === "remove") {
-            if (shoppingList !== "Default") {
-                GetShoppingList(shoppingList).then(a => {
-                    setItems(a.items)
-                    setItemSearch(a.items)
-                })
-            }
+        if (shoppingList === "Default") {
+            setItems([])
+            setItemSearch([])
+        } else if (type === "show" || type === "remove") {
+            GetShoppingList(shoppingList).then(a => {
+                setItems(a.items)
+                setItemSearch(a.items)
+            })
         } else {
             GetItems().then(a => {
                 setItems(a)
@@ -90,7 +102,7 @@ export const ShoppinglistPage = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
             </Form>
-            {items.length > 0 && shoppingList != "Default" && <ItemList list={itemSearch} mode={show} shoppingList={shoppingList}/>}
+            {items.length > 0 && shoppingList != "Default" && <ItemList list={itemSearch} mode={show} shoppingList={shoppingList} rerender={rerenderNow} />}
             {items.length > 0 && <SearchBar search={name} setSearch={onSearch}></SearchBar>}
         </div>
     );

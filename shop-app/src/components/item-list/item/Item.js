@@ -3,11 +3,10 @@ import { AddShoppingList, Buy, RemoveShoppingList } from "../../../services/Shop
 import { Numpad } from "../../numpad/Numpad"
 import { useState } from "react"
 
-export const Item = ({ item, shoppingList, mode }) => {
+export const Item = ({ item, shoppingList, mode, rerender }) => {
 
     const [numpad, setNumpad] = useState(false)
     const [name, setName] = useState("")
-    const [render, rerender] = useState(false);
 
     const onAdd = (name) => {
         setName(name)
@@ -15,11 +14,11 @@ export const Item = ({ item, shoppingList, mode }) => {
     }
 
     const onRemove = (name) => {
-        RemoveShoppingList(name, shoppingList).then(() => rerender(!render))
+        RemoveShoppingList(name, shoppingList).then(() => rerender())
     }
 
     const buy = () => {
-        Buy(item.name, shoppingList, !item.bought).then(res => { item.bought = !item.bought; rerender(!render) })
+        Buy(item.name, shoppingList, !item.bought).then(res => { item.bought = !item.bought; rerender() })
     }
 
     const onNumber = (num) => {
